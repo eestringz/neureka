@@ -1,0 +1,23 @@
+외부 서비스 정보
+
+-소셜로그인
+	카카오 소셜로그인 https://developers.kakao.com/console/app
+	구글 소셜로그인 https://cloud.google.com/identity-platform/docs/web/google?hl=ko
+
+-메일 전송 서비스
+	구글 smtp gmail 전송 https://mail.google.com/mail/u/0/#settings/labels
+	뉴스요약(허깅페이스) https://huggingface.co/gogamza/kobart-summarization
+	
+
+-TTS
+	Web Speech API https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API
+
+-한국어 형태소 분석
+	바른 AI https://bareun.ai/docs
+	한국어  sentence transformer 모델 : https://huggingface.co/ddobokki/klue-roberta-small-nli-sts
+-크롤링 
+	Selenium https://www.selenium.dev/documentation/
+	BeautifulSoup https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
+
+

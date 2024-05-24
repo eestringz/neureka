@@ -21,4 +21,8 @@ public class UserCompanyEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+
+    @Column(name = "send_mail" )
+    private Boolean isSendmail ;
 }

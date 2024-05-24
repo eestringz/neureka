@@ -19,14 +19,14 @@ def fetch_and_save_krx_data(request):
     # KRX 데이터를 DataFrame으로 가져옵니다.
     df_krx = fdr.DataReader(stock_code)
 
-
-    # DataFrame 컬럼 이름을 모두 소문자로 변경
-    df_krx.columns = [col.lower() for col in df_krx.columns]
-
     df_krx = df_krx.tail(3650)
     # 'Date' 인덱스를 일반 열로 변환하고 날짜 형식을 'YYYY-MM-DD'로 변경
     df_krx.reset_index(inplace=True)
     df_krx['Date'] = df_krx['Date'].dt.strftime('%Y-%m-%d')
+
+
+    # DataFrame 컬럼 이름을 모두 소문자로 변경
+    df_krx.columns = [col.lower() for col in df_krx.columns]
 
     # DataFrame을 JSON 형식의 문자열로 변환
     json_data = df_krx.to_json(orient='records', force_ascii=False)
@@ -36,7 +36,6 @@ def fetch_and_save_krx_data(request):
 
     # 포맷팅된 JSON 문자열을 HttpResponse 객체를 사용하여 반환
     return HttpResponse(formatted_json_data, content_type="application/json; charset=utf-8")
-
 
 @api_view(["POST"])
 def stock_news(request):

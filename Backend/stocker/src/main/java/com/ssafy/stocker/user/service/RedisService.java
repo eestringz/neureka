@@ -4,12 +4,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.datatype.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +26,14 @@ public class RedisService {
     }
 
 
+    public void setValuesToList(String key, String data, Long refreshExpireMs ) {
+        ListOperations<String, Object> listOper = redisTemplate.opsForList();
+        listOper.rightPush(key, data);
+        redisTemplate.expire(key, refreshExpireMs, TimeUnit.MILLISECONDS);
+//        values.set(key, data, refreshExpireMs , TimeUnit.MILLISECONDS);
+    }
+
+
 
     @Transactional(readOnly = true)
     public String getValues(String key) {
@@ -33,6 +43,13 @@ public class RedisService {
         }
         return (String) values.get(key);
     }
+
+    @Transactional(readOnly = true)
+    public List<Object> getValuesToList(String key) {
+        ListOperations<String, Object> listOperations = redisTemplate.opsForList();
+        return listOperations.range(key, 0, -1); // -1은 모든 요소를 가져오기 위한 인덱스입니다.
+    }
+
 
     public void deleteValues(String key) {
         redisTemplate.delete(key);

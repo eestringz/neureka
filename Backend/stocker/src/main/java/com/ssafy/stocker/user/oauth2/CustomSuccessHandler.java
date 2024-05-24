@@ -1,7 +1,8 @@
 package com.ssafy.stocker.user.oauth2;
 
 import com.ssafy.stocker.user.dto.CustomOAuth2User;
-import com.ssafy.stocker.user.jwt.JWTUtil;
+import com.ssafy.stocker.setting.jwt.JWTUtil;
+import com.ssafy.stocker.user.repository.UserRepository;
 import com.ssafy.stocker.user.service.RedisService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -9,8 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -27,16 +25,18 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     private final JWTUtil jwtUtil;
     private final RedisService redisService;
+    private final UserRepository userRepository;
 
     @Value("${access.token.expiration.time}")
     private Long accessExpireMs ;
 
     @Value("${refresh.token.expiration.time}")
     private Long refreshExpireMs ;
-    public CustomSuccessHandler(JWTUtil jwtUtil, RedisService redisService) {
+    public CustomSuccessHandler(JWTUtil jwtUtil, RedisService redisService, UserRepository userRepository) {
 
         this.jwtUtil = jwtUtil;
         this.redisService = redisService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -46,8 +46,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
 
         String username = customUserDetails.getUsername();
+        String email = userRepository.findByUsername(username).getEmail();
 
-
+        log.info("success핸들러 " + email);
 
         // 권한을 찾아서 권한 설정해줌
         // authentication.getAuthorities()를 호출하여
@@ -60,8 +61,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
 
 
-        String access = jwtUtil.createJwt("access", username, role, accessExpireMs);
-        String refresh = jwtUtil.createJwt("refresh", username, role, refreshExpireMs);
+        String access = jwtUtil.createJwt("access",email, username, role, accessExpireMs);
+        String refresh = jwtUtil.createJwt("refresh",email, username, role, refreshExpireMs);
 
         log.info("accesstoken : " + access);
         log.info("refreshtoken" + refresh);
@@ -72,9 +73,12 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         redisService.setValues(username, refresh, refreshExpireMs );
 
 
-        response.setHeader("Authorization" , "Bearer " +access);
+//       response.addHeader("Authorization" , "Bearer " +access);
         response.addCookie(createCookie("refresh", refresh));
-        response.sendRedirect("http://localhost:5173/");
+        response.addCookie(createCookie("Authorization", access));
+//        response.addHeader("Authorization" , "Bearer " +access);
+        log.info("response " + response.getHeader("Authorization"));
+        response.sendRedirect("http://localhost:5173");
     }
 
     private Cookie createCookie(String key, String value) {
@@ -83,7 +87,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         cookie.setMaxAge(60*60*60*60);
         //cookie.setSecure(true);
         cookie.setPath("/");
-        cookie.setHttpOnly(true);
+        cookie.setHttpOnly(false);
 
         return cookie;
     }

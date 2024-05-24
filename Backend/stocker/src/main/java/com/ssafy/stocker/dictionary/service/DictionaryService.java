@@ -16,4 +16,6 @@ public interface DictionaryService {
     void addLikeDictionary(String email, String title);
 
     List<UserDictionaryEntity> findUserLikeDictionary(String email);
+
+    void deleteLikeDictionary(String email, String title);
 }

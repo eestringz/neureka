@@ -93,8 +93,12 @@ def text_through_LDA_probability(text):
     import gensim
     # 기사본문(텍스트) 토큰화.
     tokenized_text_TTLP = keyword_nouns(text).split()
+
+    stop_words_path = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), '..', 'LDA', 'stop_words.txt'))
+
     # 불용어 불러오기
-    with open("LDA/stop_words.txt", "r", encoding="utf-8") as file:
+    with open(stop_words_path, "r", encoding="utf-8") as file:
         stop_word_TTLP = [word.rstrip() for word in file.readlines()]
     # 불용어 처리
     tokenized_text_TTLP = [token for token in tokenized_text_TTLP if token not in stop_word_TTLP and len(token) >= 2]
@@ -103,10 +107,11 @@ def text_through_LDA_probability(text):
     # LDA 모델이 저장된 경로
     # today_folder_path = f"model/{date.today()}"
 
-    # news_keyword.py 기준으로 경로를 지정해야함
     # today_folder_path = "/model/main_model"
     # today_folder_path = "LDA/model/main_model"
-    today_folder_path = "LDA/model/2024-03-20"
+
+    today_folder_path = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), '..', 'LDA', 'model', '2024-03-20'))
     # 저장된 LDA모델 불러오기
     ldamodel = gensim.models.ldamodel.LdaModel.load(today_folder_path + '/lda_model_crawled')
 

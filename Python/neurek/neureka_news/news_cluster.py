@@ -1,18 +1,16 @@
-from django.conf import settings
+import sys
 import os
-import json
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+from neurek.neureka_news.models import SummaryArticle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances_argmin_min
-import requests
-from bs4 import BeautifulSoup
 from bareunpy import Tagger
 from sentence_transformers import SentenceTransformer
 
-
 model = SentenceTransformer('ddobokki/klue-roberta-small-nli-sts')
 API_KEY = "koba-E6NTYJA-XRXUDDI-U26NETA-QDNVN2A"
-# print("API 키 입니다." , API_KEY)
 tagger = Tagger(API_KEY, 'localhost', 5757)  # KPF에서 제공하는 바른 형태소분석기
 
 # 불용어
@@ -32,45 +30,51 @@ def keyword_nouns(text):
     return tokenized_nouns
 
 
-def kmeans_cluster(link_list):
+def kmeans_cluster(id_list):
+    # _id 리스트가 비었을 경우 빈 리스트 반환
+    if not id_list:
+        return []
 
+    # _id 리스트의 길이가 4 미만이면 클러스터링 없이 바로 결과 반환
+    if len(id_list) < 4:
+        search_result = []
+        for article_id in id_list:
+            article = SummaryArticle.find_by_id(article_id)
+
+            if article:
+                article['_id'] = str(article['_id'])
+                search_result.append(article)
+        return search_result
+
+    # _id 리스트의 길이가 4 이상일 때는 아래의 로직을 실행
     nouns_list = []
-
-    for link in link_list:
-        response = requests.get(link)
-        soup = BeautifulSoup(response.content, "html.parser")
-        article_text = soup.find("article").get_text(strip=True)
-
-        nouns_list.append(keyword_nouns(article_text))
-
     # 텍스트 벡터화
     tfidf_vectorizer = TfidfVectorizer()
-    # tfidf_matrix = tfidf_vectorizer.fit_transform([article['nouns'] for article in news_data.get(keyword)])
-    tfidf_matrix = tfidf_vectorizer.fit_transform(nouns_list)
 
-    # KMeans 클러스터링
-    kmeans = KMeans(n_clusters=4, random_state=42).fit(tfidf_matrix)
+    for _id in id_list:
+        article = SummaryArticle.find_by_id(_id)
+        if article and 'nouns' in article:
+            nouns_list.append(article['nouns'])
 
-    # 클러스터링 결과에 따라 각 그룹의 대표 기사를 선택합니다.
-    # 여기서는 각 클러스터의 중심에 가장 가까운 기사를 대표 기사로 선택합니다.
-    closest, _ = pairwise_distances_argmin_min(kmeans.cluster_centers_, tfidf_matrix)
-    representative_articles = [link_list[idx] for idx in closest]
+    # 명사 리스트를 텍스트 벡터화
+    if nouns_list:
+        tfidf_matrix = tfidf_vectorizer.fit_transform(nouns_list)
 
-    file_path = os.path.join(settings.BASE_DIR, 'neureka_news', 'news_data.json')
-    with open(file_path, 'r', encoding='utf-8') as file:
-        news_data = json.load(file)
+        # KMeans 클러스터링
+        kmeans = KMeans(n_clusters=4, random_state=42).fit(tfidf_matrix)
 
-    # 특정 article_title을 검색하는 예시
+        # 클러스터의 중심에 가장 가까운 기사를 선택
+        closest, _ = pairwise_distances_argmin_min(kmeans.cluster_centers_, tfidf_matrix)
+        representative_ids = [id_list[idx] for idx in closest]
 
-    # 검색 결과를 담을 변수 초기화
-    search_result = []
-
-    # 5. 결과 출력
-    for article_link in representative_articles:
-        # news_data를 순회하면서 article_title이 일치하는 항목을 찾기
-        for article in news_data:
-            if article["article_link"] == article_link:
+        search_result = []
+        for article_id in representative_ids:
+            article = SummaryArticle.find_by_id(article_id)
+            if article:
+                article['_id'] = str(article['_id'])
                 search_result.append(article)
-                break
 
-    return search_result
+        return search_result
+    else:
+        # 명사 리스트가 비어 있는 경우에 대한 처리
+        return []

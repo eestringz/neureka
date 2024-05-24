@@ -23,9 +23,10 @@ DROP TABLE IF EXISTS `user_like_company`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_like_company` (
-  `ulc_id` int NOT NULL AUTO_INCREMENT,
+  `ulc_id` bigint NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `company_id` int DEFAULT NULL,
+  `send_mail` bit(1) DEFAULT NULL,
   PRIMARY KEY (`ulc_id`),
   KEY `fk_user_like_company_user_id` (`user_id`),
   KEY `fk_user_like_company_company_id` (`company_id`),
@@ -40,7 +41,7 @@ CREATE TABLE `user_like_company` (
 
 LOCK TABLES `user_like_company` WRITE;
 /*!40000 ALTER TABLE `user_like_company` DISABLE KEYS */;
-INSERT INTO `user_like_company` VALUES (1,1,1);
+INSERT INTO `user_like_company` VALUES (1,1,1,_binary '');
 /*!40000 ALTER TABLE `user_like_company` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-21 14:07:05
+-- Dump completed on 2024-03-28 10:02:24

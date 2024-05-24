@@ -1,7 +1,7 @@
 package com.ssafy.stocker.user.service;
 
 
-import com.ssafy.stocker.user.jwt.JWTUtil;
+import com.ssafy.stocker.setting.jwt.JWTUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 
 import jakarta.servlet.http.Cookie;
@@ -82,10 +82,10 @@ public class ReissueServiceImpl implements ReissueService{
 
         String username = jwtUtil.getUsername(refresh);
         String role = jwtUtil.getRole(refresh);
-
+        String email = jwtUtil.getEmail(refresh);
         //make new JWT
-        String newAccess = jwtUtil.createJwt("access", username, role, accessExpireMs);
-        String newRefresh = jwtUtil.createJwt("refresh", username, role, refreshExpireMs);
+        String newAccess = jwtUtil.createJwt("access", email,username, role, accessExpireMs);
+        String newRefresh = jwtUtil.createJwt("refresh",email, username, role, refreshExpireMs);
 
         //Refresh 토큰 저장 DB에 기존의 Refresh 토큰 삭제 후 새 Refresh 토큰 저장
         redisService.deleteValues(refresh);
@@ -104,7 +104,7 @@ public class ReissueServiceImpl implements ReissueService{
             cookie.setMaxAge(60*60*60*60);
             //cookie.setSecure(true);
             cookie.setPath("/");
-            cookie.setHttpOnly(true);
+            cookie.setHttpOnly(false);
 
             return cookie;
         }

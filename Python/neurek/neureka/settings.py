@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-n*!_j^rp$_nd+4upqsp+*2v&+qp_y%_+xcf=098%ve&0%5%zfi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    # 개발 환경 설정
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+else:
+    # 배포 환경 설정
+    ALLOWED_HOSTS = ['j10c105.p.ssafy.io']
 
 
 # Application definition
@@ -39,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'neureka_news',
-    'pymongo'
+    'pymongo',
+    'drf_yasg', #drf_yasg
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +57,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # cors에러 설정
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+# 특정 도메인만 허용
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:8080",
+    "http://localhost:5173",
 ]
 
 ROOT_URLCONF = 'neureka.urls'

@@ -1,5 +1,6 @@
 package com.ssafy.stocker.dictionary.service;
 
+import ch.qos.logback.classic.Logger;
 import com.ssafy.stocker.company.entity.CompanyEntity;
 import com.ssafy.stocker.company.entity.UserCompanyEntity;
 import com.ssafy.stocker.dictionary.dto.DictionaryDTO;
@@ -10,6 +11,7 @@ import com.ssafy.stocker.dictionary.repository.UserDictionaryRepository;
 import com.ssafy.stocker.user.entity.UserEntity;
 import com.ssafy.stocker.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +60,20 @@ public class DictionaryServiceImpl implements DictionaryService{
         List<UserDictionaryEntity> userDictionaryList = userDictionaryRepository.findByUser(user);
 
         return userDictionaryList;
+    }
+
+    @Override
+    @Transactional
+    public void deleteLikeDictionary(String email, String title) {
+        UserEntity user = userRepository.findByEmail(email);
+        DictionaryEntity dictionary = dictinaryRepository.findByTitle(title);
+
+        UserDictionaryEntity userDictionary = new UserDictionaryEntity();
+
+        userDictionary.setDictionary(dictionary);
+        userDictionary.setUser(user);
+
+        userDictionaryRepository.deleteByUserAndDictionary(user, dictionary);
     }
 
 

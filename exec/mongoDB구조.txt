@@ -1,0 +1,110 @@
+details_article_collection
+
+{
+  "_id": {
+    "$oid": "기사 고유값"
+  },
+  "detail_url": "기사 url",
+  "detail_date": "기사 작성일",
+  "detail_keywords": [
+    "키워드 1",
+    "키워드 2",
+    "키워드 3"
+  ],
+  "detail_press": "출판사",
+  "detail_text": "기사 본문",
+  "detail_title": "기사 제목",
+  "detail_topic": "기사 토픽",
+  "detail_rate": "기사 평점 총합",
+  "detail_rate_count": "기사 평점 횟수",
+  "views": "기사 조회수"
+}
+
+
+
+================================
+headlines
+
+{
+  "_id": {
+    "$oid": "헤드라인 고유값"
+  },
+  "headline_date": "헤드라인 작성일",
+  "headline_press": "출판사",
+  "headline_thumbnail_url": "썸네일 url",
+  "headline_title": "헤드라인 제목",
+  "headline_url": "헤드라인 url"
+}
+
+===================================
+keyword_article_collection
+
+{
+  "_id" : {
+    "$oid" : "키워드 고유값"
+  },
+  "keywords" : {
+    "키워드 1" : {"키워드 모음" ...},
+    "키워드 2" : {"키워드 모음" ...},
+    "키워드 3" : {"키워드 모음" ...},
+  }
+}
+
+=================================
+
+summmary_article_collection
+
+{
+  "_id": {
+    "$oid": "기사 고유값"
+  },
+  "article_link": "기사 링크"
+  "article_summary": "기사 요약",
+  "article_title": "기사 제목]",
+  "date_time": "날짜",
+  "keywords": [
+    "키워드 1",
+    "키워드 2",
+    "키워드 3"
+  ],
+  "nouns": "기사 형태소 분석 결과",
+  "press": "출판사",
+  "sentiment": [
+    {
+      "label": "positive 혹은 neutral 혹은 negative",
+      "score": "점수"
+    },
+  ],
+  "thumbnail_url": "썸네일 url",
+  "topic": "토픽"
+}
+
+
+================================
+
+user
+
+{
+  "_id": {
+    "$oid": "사용자 고유값"
+  },
+  "user_id": "사용자 아이디",
+  "interests": {
+    "keywords": {
+      "키워드": {
+        "last_read": {
+          "$date": "마지막 열람 시간"
+        },
+        "score": 할당된 점수
+      },
+    },
+    "press": {
+      "언론사 1": "할당된 점수",
+      "언론사 2": "할당된 점수",
+    },
+    "topics": {
+      "토픽 이름 1": "할당된 점수"
+    }
+  },
+  "views": "조회수"
+}

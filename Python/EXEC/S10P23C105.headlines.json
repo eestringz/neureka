@@ -1,0 +1,89 @@
+[{
+  "_id": {
+    "$oid": "660f42f395108de553f88557"
+  },
+  "headline_date": "2024-04-05 06:00",
+  "headline_press": "뉴스1",
+  "headline_thumbnail_url": "https://imgnews.pstatic.net/image/421/2024/04/05/0007460106_001_20240405060142976.jpg?type=w647",
+  "headline_title": "롯데마트와 슈퍼, '시원탕 꽃게탕면' 출시 5일 만에 2만5천개 팔려",
+  "headline_url": "https://n.news.naver.com/mnews/article/421/0007460106"
+},
+{
+  "_id": {
+    "$oid": "660f42f395108de553f8856f"
+  },
+  "headline_date": "2024-04-05 05:53",
+  "headline_press": "아시아경제",
+  "headline_thumbnail_url": "https://imgnews.pstatic.net/image/277/2024/04/05/0005401988_001_20240405072504018.jpg?type=w647",
+  "headline_title": "Fed 매파 발언·중동 긴장 고조에 일제히 하락[뉴욕증시]",
+  "headline_url": "https://n.news.naver.com/mnews/article/277/0005401988"
+},
+{
+  "_id": {
+    "$oid": "660f42f395108de553f88597"
+  },
+  "headline_date": "2024-04-05 06:01",
+  "headline_press": "조선비즈",
+  "headline_thumbnail_url": "https://imgnews.pstatic.net/image/366/2024/04/05/0000983397_001_20240405060119761.jpg?type=w647",
+  "headline_title": "부동산 PF 대출 연장하려면 이자 2배 내라?… 적정 금리·수수료 책정한다",
+  "headline_url": "https://n.news.naver.com/mnews/article/366/0000983397"
+},
+{
+  "_id": {
+    "$oid": "660f42f395108de553f885ae"
+  },
+  "headline_date": "2024-04-04 14:40",
+  "headline_press": "연합뉴스",
+  "headline_thumbnail_url": "https://imgnews.pstatic.net/image/001/2024/04/04/AKR20240404102600002_01_i_P4_20240404144106992.jpg?type=w647",
+  "headline_title": "IBK벤처투자 출범…김성태 기업은행장 \"벤처금융 사각지대 해소\"",
+  "headline_url": "https://n.news.naver.com/mnews/article/001/0014610625"
+},
+{
+  "_id": {
+    "$oid": "660f42f595108de553f885e3"
+  },
+  "headline_date": "2024-04-05 08:59",
+  "headline_press": "이데일리",
+  "headline_thumbnail_url": "https://imgnews.pstatic.net/image/018/2024/04/05/0005707681_001_20240405085903021.jpg?type=w647",
+  "headline_title": "'반도체의 봄'…삼성전자 1분기 영업익 6.6조 '호실적'(상보)",
+  "headline_url": "https://n.news.naver.com/mnews/article/018/0005707681"
+},
+{
+  "_id": {
+    "$oid": "660f42f595108de553f885ef"
+  },
+  "headline_date": "2024-04-05 07:00",
+  "headline_press": "파이낸셜뉴스",
+  "headline_thumbnail_url": "https://imgnews.pstatic.net/image/014/2024/04/05/0005167304_001_20240405070004263.jpg?type=w647",
+  "headline_title": "카카오, 목표주가 7.5만→6.8만-한투",
+  "headline_url": "https://n.news.naver.com/mnews/article/014/0005167304"
+},
+{
+  "_id": {
+    "$oid": "660f42f595108de553f88610"
+  },
+  "headline_date": "2024-04-04 09:55",
+  "headline_press": "파이낸셜뉴스",
+  "headline_thumbnail_url": "https://imgnews.pstatic.net/image/014/2024/04/04/0005166750_001_20240404095502214.jpg?type=w647",
+  "headline_title": "LG엔솔 \"7.2조 투자 美 원통형-ESS 전용공장 본격착공\"",
+  "headline_url": "https://n.news.naver.com/mnews/article/014/0005166750"
+},
+{
+  "_id": {
+    "$oid": "660f42f695108de553f8862f"
+  },
+  "headline_date": "2024-04-04 10:14",
+  "headline_press": "서울신문",
+  "headline_thumbnail_url": "https://imgnews.pstatic.net/image/081/2024/04/04/0003441990_001_20240404101401171.jpg?type=w647",
+  "headline_title": "GTX-A 日 평균 8000명 탔다…국토부 예측치 ‘3분의 1’ 수준",
+  "headline_url": "https://n.news.naver.com/mnews/article/081/0003441990"
+},
+{
+  "_id": {
+    "$oid": "660f42f695108de553f88645"
+  },
+  "headline_date": "2024-04-04 21:59",
+  "headline_press": "YTN",
+  "headline_title": "새마을금고 \"위법대출 혐의...양문석 딸 수사기관 통보\"",
+  "headline_url": "https://n.news.naver.com/mnews/article/052/0002019233"
+}]

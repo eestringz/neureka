@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d973f0a-abaf-4a40-b445-9e5df97b204d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_news/keyword_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_news/keyword_data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_news/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_news/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_news/mongo_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_news/news_cluster.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_news/news_cluster.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_news/news_crawling.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_news/news_crawling.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_news/news_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_news/news_data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_news/news_keyword.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_news/news_keyword.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_news/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_news/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_news/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_stock/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_stock/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/neurek/neureka_stock/stock_news.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/neurek/neureka_stock/stock_news.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,12 +25,15 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2dO5sIuI7eyTr1HCOoFHEySjRSe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -30,9 +43,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/san",
+    "git-widget-placeholder": "feature/DATA-news",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/SSAFY/Desktop/특화/S10P22C105/Backend/stocker/build.gradle",
+    "last_opened_file_path": "C:/Users/SSAFY/SSAFY/Project/nereka/S10P22C105/Backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -50,6 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1709866492936</updated>
       <workItem from="1709866494549" duration="1283000" />
+      <workItem from="1710982032627" duration="649000" />
     </task>
     <servers />
   </component>
