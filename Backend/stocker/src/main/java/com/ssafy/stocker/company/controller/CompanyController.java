@@ -5,6 +5,8 @@ import com.ssafy.stocker.company.entity.CompanyEntity;
 import com.ssafy.stocker.company.entity.CompanyReadEntity;
 import com.ssafy.stocker.company.entity.UserCompanyEntity;
 import com.ssafy.stocker.company.service.CompanyService;
+import com.ssafy.stocker.company.service.SendMailService;
+import com.ssafy.stocker.company.service.SendMailServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
@@ -25,17 +27,25 @@ import java.util.Map;
 public class CompanyController {
 
 
+
     private final CompanyService companyService;
     private final WebClient webClient ;
-    public CompanyController(CompanyService companyService, WebClient.Builder webClientBuilder){
+
+    private final SendMailService sendMailService;
+
+    private final String releaseHostName ;
+    public CompanyController(CompanyService companyService, WebClient.Builder webClientBuilder, @Value("${releaseHostName}")String releaseHostName, SendMailService sendMailService){
+        this.releaseHostName = releaseHostName;
         this.companyService = companyService;
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8000").build() ;
+        this.webClient = webClientBuilder.baseUrl("http://"+releaseHostName+":8000").build() ;
+        this.sendMailService = sendMailService;
     }
 
     @Operation(summary = "사용자가 최근 조회한 기업을 리스트에 추가합니다." )
     @PostMapping("/read")
     public ResponseEntity<?> companyReadAdd( @RequestParam String email ,@RequestParam String code){
         try {
+            log.info("companyReadAdd 실행 email , code : " +email +" " + code);
             companyService.addCompanyRead(code , email);
 
             return new ResponseEntity<>(HttpStatus.OK);
@@ -51,6 +61,8 @@ public class CompanyController {
     @GetMapping("/read")
     public ResponseEntity<?> companyReadList( @RequestParam String email){
         try {
+
+            log.info("companyReadList 실행 email : " +email );
             List<CompanyReadEntity> companyRead = companyService.listCompanyRead( email);
 
             return new ResponseEntity<List<CompanyReadEntity>>(companyRead ,HttpStatus.OK);
@@ -172,5 +184,18 @@ public class CompanyController {
         }
     }
 
+
+    @Operation(summary = "전체 유저에게 요약 메일을 전송합니다")
+    @GetMapping("/send/mail")
+    public ResponseEntity<?> sendMail(){
+        try {
+            sendMailService.sendMail();
+            return  new ResponseEntity<Void>(HttpStatus.OK);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            return  new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

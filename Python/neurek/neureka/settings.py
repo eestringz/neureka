@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n*!_j^rp$_nd+4upqsp+*2v&+qp_y%_+xcf=098%ve&0%5%zfi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     # 개발 환경 설정
@@ -68,6 +68,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:8080",
     "http://localhost:5173",
+    "http://j10c105.p.ssafy.io:3000",
+    "http://j10c105.p.ssafy.io:8080",
+    "http://j10c105.p.ssafy.io:5173",
+    "https://j10c105.p.ssafy.io:3000",
+    "https://j10c105.p.ssafy.io:8080",
+    "https://j10c105.p.ssafy.io:5173",
 ]
 
 ROOT_URLCONF = 'neureka.urls'

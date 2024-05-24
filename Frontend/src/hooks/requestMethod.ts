@@ -3,7 +3,7 @@ import { Tokenlogout } from './logout'
 import { useAtom } from 'jotai'
 import { isLoginAtom } from '@src/stores/authAtom'
 
-const BASE_URL = 'http://localhost:8080/api/v1/'
+export const BASE_URL = `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/`
 
 axios.defaults.withCredentials = true
 const isLogin = localStorage.getItem('isLogin')

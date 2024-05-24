@@ -13,6 +13,7 @@ import com.ssafy.stocker.company.service.SendMailService;
 import com.ssafy.stocker.user.entity.UserEntity;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -38,10 +39,10 @@ public class SendMailServiceImpl implements SendMailService {
     private final WebClient webClient ;
     private final TemplateEngine templateEngine;
     private final ObjectMapper objectMapper;
-    public SendMailServiceImpl(UserCompanyRepository userCompanyRepository, JavaMailSender javaMailSender, WebClient.Builder webClientBuilder,TemplateEngine templateEngine, ObjectMapper objectMapper){
+    public SendMailServiceImpl(UserCompanyRepository userCompanyRepository, JavaMailSender javaMailSender, WebClient.Builder webClientBuilder,TemplateEngine templateEngine, ObjectMapper objectMapper,@Value("${releaseHostName}") String releaseHostName){
         this.userCompanyRepository = userCompanyRepository;
         this.javaMailSender = javaMailSender;
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8000").build() ;
+        this.webClient = webClientBuilder.baseUrl("http://"+releaseHostName+":8000").build() ;
         this.templateEngine = templateEngine;
         this.objectMapper = objectMapper;
     }
@@ -169,20 +170,30 @@ public class SendMailServiceImpl implements SendMailService {
     //요약한 값 불러오기
     private String getSummaryNews(String newsId) {
 
-
         String url = "/data/news/api/news_summary/";
         log.info("getsummaryNews"  + newsId + "실행" + "경로는 " + url);
         Map<String, String> requestData = new HashMap<>();
         requestData.put("_id", newsId);
 
-        String summaryNews = webClient.post()
-                .uri(url)
-                .bodyValue(requestData)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        try {
+            Thread.sleep(1000); // 1초 대기
 
-        return summaryNews;
+            String summaryNews = webClient.post()
+                    .uri(url)
+                    .bodyValue(requestData)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+
+            return summaryNews;
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // 스레드 인터럽트 상태 복원
+            log.error("Thread interrupted", e);
+            return "에러발생..";
+        }
+
+
 
     }
 

@@ -3,6 +3,12 @@ import json
 import time
 from sentence_transformers import SentenceTransformer
 from bareunpy import Tagger
+from dotenv import load_dotenv
+# .env 파일 로드
+load_dotenv()
+
+# 환경 변수 읽기
+prod_host = os.getenv("PROD_HOST")
 
 # 바른AI를 사용해 형태소 분석을 진행합니다
 # 형태소 분석을 위해서 Docker 환경에 GPU 버전으로 컨테이너와 이미지를 설치했습니다.
@@ -11,7 +17,7 @@ from bareunpy import Tagger
 # API_KEY = "koba-2XBK6DY-HNAE4VY-RYZWFHA-GCGGG2A"
 API_KEY = "koba-E6NTYJA-XRXUDDI-U26NETA-QDNVN2A"
 # print("API 키 입니다." , API_KEY)
-tagger = Tagger(API_KEY, 'localhost', 5757)  # KPF에서 제공하는 바른 형태소분석기
+tagger = Tagger(API_KEY, prod_host, 5757)  # KPF에서 제공하는 바른 형태소분석기
 
 model = SentenceTransformer('ddobokki/klue-roberta-small-nli-sts')
 

@@ -11,6 +11,8 @@ import java.util.List;
 public interface UserDictionaryRepository extends JpaRepository<UserDictionaryEntity, Long> {
     List<UserDictionaryEntity> findByUser(UserEntity user);
 
+    Boolean existsByUserAndDictionary(UserEntity user, DictionaryEntity dictionary) ;
+
     @Transactional
     void deleteByUserAndDictionary(UserEntity user , DictionaryEntity dictionary);
 }

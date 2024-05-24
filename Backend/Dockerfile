@@ -25,4 +25,4 @@ ENTRYPOINT [                                                \
    "java",                                                 \
    "-jar",                                                 \
    "stocker-0.0.1-SNAPSHOT.jar"             \
-]
+   ]

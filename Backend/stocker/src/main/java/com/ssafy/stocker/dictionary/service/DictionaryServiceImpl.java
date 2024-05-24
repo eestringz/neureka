@@ -51,7 +51,10 @@ public class DictionaryServiceImpl implements DictionaryService{
         userDictionary.setUser(user);
         userDictionary.setDictionary(dictionary);
 
-        userDictionaryRepository.save(userDictionary);
+        if(!userDictionaryRepository.existsByUserAndDictionary(user,dictionary)){
+            userDictionaryRepository.save(userDictionary);
+        }
+
     }
 
     @Override

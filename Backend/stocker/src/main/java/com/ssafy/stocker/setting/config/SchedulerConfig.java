@@ -16,12 +16,12 @@ public class SchedulerConfig {
     }
 
 // 매일 오전 9시 실행
-//    @Scheduled(cron = "0 0 9 * * ?")
+    @Scheduled(cron = "0 10 9 * * ?")
+//
 
-
-    //서버를 실행시킬때마다 실행
+////    서버를 실행시킬때마다 실행
 //    @Scheduled(initialDelay = 0 , fixedDelay = Long.MAX_VALUE)
-//    public void sendMail() {
-//        sendMailService.sendMail();
-//    }
+    public void sendMail() {
+        sendMailService.sendMail();
+    }
 }

@@ -32,11 +32,16 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     @Value("${refresh.token.expiration.time}")
     private Long refreshExpireMs ;
-    public CustomSuccessHandler(JWTUtil jwtUtil, RedisService redisService, UserRepository userRepository) {
+
+
+    private final String releaseHostName ;
+
+    public CustomSuccessHandler(JWTUtil jwtUtil, RedisService redisService, UserRepository userRepository,@Value("${releaseHostName}") String releaseHostName) {
 
         this.jwtUtil = jwtUtil;
         this.redisService = redisService;
         this.userRepository = userRepository;
+        this.releaseHostName = releaseHostName;
     }
 
     @Override
@@ -78,7 +83,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         response.addCookie(createCookie("Authorization", access));
 //        response.addHeader("Authorization" , "Bearer " +access);
         log.info("response " + response.getHeader("Authorization"));
-        response.sendRedirect("http://localhost:5173");
+        response.sendRedirect("https://"+releaseHostName);
     }
 
     private Cookie createCookie(String key, String value) {

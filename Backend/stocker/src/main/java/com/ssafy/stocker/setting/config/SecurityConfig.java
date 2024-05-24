@@ -26,6 +26,8 @@ public class SecurityConfig {
     private final CustomSuccessHandler customSuccessHandler;
     private final JWTUtil jwtUtil;
 
+
+    private final String releaseHostName ;
     //swagger 설정
     private static final String[] AUTH_WHITELIST = {
             "/", "/api/**", "/graphiql", "/graphql",
@@ -33,11 +35,12 @@ public class SecurityConfig {
             "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html"
     };
 
-    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService, CustomSuccessHandler customSuccessHandler, JWTUtil jwtUtil) {
+    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService, CustomSuccessHandler customSuccessHandler, JWTUtil jwtUtil,@Value("${releaseHostName}") String releaseHostName) {
 
         this.customOAuth2UserService = customOAuth2UserService;
         this.customSuccessHandler = customSuccessHandler;
         this.jwtUtil = jwtUtil;
+        this.releaseHostName = releaseHostName;
     }
 
     @Bean
@@ -56,7 +59,7 @@ public class SecurityConfig {
 
                         CorsConfiguration configuration = new CorsConfiguration();
 
-                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+                        configuration.setAllowedOrigins(Collections.singletonList("https://"+releaseHostName));
                         configuration.setAllowedMethods(Collections.singletonList("*"));
                         configuration.setAllowCredentials(true);
                         configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -108,6 +111,11 @@ public class SecurityConfig {
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+//        http
+//                // HTTPS를 사용해야 하는 경로 설정
+//                .requiresChannel()
+//                .requestMatchers(r -> r.getRequestURI().startsWith("/secure"))
+//                .requiresSecure();
         return http.build();
     }
 }

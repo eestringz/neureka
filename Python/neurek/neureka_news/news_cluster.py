@@ -9,9 +9,16 @@ from sklearn.metrics import pairwise_distances_argmin_min
 from bareunpy import Tagger
 from sentence_transformers import SentenceTransformer
 
+from dotenv import load_dotenv
+# .env 파일 로드
+load_dotenv()
+
+# 환경 변수 읽기
+prod_host = os.getenv("PROD_HOST")
+
 model = SentenceTransformer('ddobokki/klue-roberta-small-nli-sts')
 API_KEY = "koba-E6NTYJA-XRXUDDI-U26NETA-QDNVN2A"
-tagger = Tagger(API_KEY, 'localhost', 5757)  # KPF에서 제공하는 바른 형태소분석기
+tagger = Tagger(API_KEY, prod_host, 5757)  # KPF에서 제공하는 바른 형태소분석기
 
 # 불용어
 # 현재 스크립트 파일의 경로를 가져옵니다.

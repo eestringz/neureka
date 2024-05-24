@@ -9,11 +9,13 @@ import com.ssafy.stocker.company.repository.UserCompanyRepository;
 import com.ssafy.stocker.user.entity.UserEntity;
 import com.ssafy.stocker.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class CompanyServiceImpl implements  CompanyService {
 
@@ -79,10 +81,11 @@ public class CompanyServiceImpl implements  CompanyService {
     @Override
     public void addCompanyRead(String code ,String email) {
         CompanyReadEntity companyRead = new CompanyReadEntity();
-
+        log.info("readaddcompany service 실행 email , code : " +email +" " + code);
         companyRead.setCompany(companyRepository.findByCode(code));
         companyRead.setEmail(email);
         if(!companyReadRepository.existsByEmailAndCompany(email, companyRead.getCompany())){
+            log.info("이미 조회한 email , company" + companyRead.getCompany() + " " + companyRead.getEmail());
             companyReadRepository.save(companyRead);
         }
 

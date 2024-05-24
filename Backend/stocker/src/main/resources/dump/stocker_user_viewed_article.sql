@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: stocker
+-- Host: localhost    Database: stocker
 -- ------------------------------------------------------
--- Server version	8.0.35
+-- Server version	8.0.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,10 +24,13 @@ DROP TABLE IF EXISTS `user_viewed_article`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_viewed_article` (
   `uva_id` bigint NOT NULL AUTO_INCREMENT,
-  `article_url` varchar(255) DEFAULT NULL,
-  `user_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`uva_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `article_id` varchar(255) DEFAULT NULL,
+  `rating` varchar(255) DEFAULT NULL,
+  `user_info_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`uva_id`),
+  KEY `FKs6agymcwfpdfrftqftyyd778t` (`user_info_id`),
+  CONSTRAINT `FKs6agymcwfpdfrftqftyyd778t` FOREIGN KEY (`user_info_id`) REFERENCES `user_info` (`user_info_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +39,7 @@ CREATE TABLE `user_viewed_article` (
 
 LOCK TABLES `user_viewed_article` WRITE;
 /*!40000 ALTER TABLE `user_viewed_article` DISABLE KEYS */;
+INSERT INTO `user_viewed_article` VALUES (3,'6607caae666b59298cefbaff','5',6),(4,'6607caae666b59298cefbaff','2',4);
 /*!40000 ALTER TABLE `user_viewed_article` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-28 10:02:23
+-- Dump completed on 2024-04-02  8:53:14

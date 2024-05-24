@@ -9,6 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsMvcConfig implements WebMvcConfigurer {
 
 
+    private final String releaseHostName ;
+
+    public CorsMvcConfig(@Value("${releaseHostName}") String releaseHostName) {
+        this.releaseHostName = releaseHostName;
+    }
 
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
@@ -16,7 +21,8 @@ public class CorsMvcConfig implements WebMvcConfigurer {
         corsRegistry.addMapping("/**")
                 .exposedHeaders("Set-Cookie")
                 .exposedHeaders("Authorization")
-                .allowedOrigins("http://localhost:5173" ,"http://192.168.100.134:3000" , "http://192.168.100.134:5173")
+                .allowedOrigins("http://"+releaseHostName+":5173",
+                        "https://"+releaseHostName,  "https://"+releaseHostName+":5173" ,"http://192.168.100.134:3000" , "http://192.168.100.134:5173")
                 .allowCredentials(true);
 
     }

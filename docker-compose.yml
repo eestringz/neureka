@@ -18,3 +18,9 @@ services:
     ports:
       - "8000:8000"
     restart: always
+  
+  redis:
+    image: 170a1e90f843
+    ports:
+      - "6379:6379"
+    restart: always

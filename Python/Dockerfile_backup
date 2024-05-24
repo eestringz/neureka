@@ -18,5 +18,5 @@ RUN pip install -r requirements.txt
 # Django 서버 실행을 위한 디렉토리로 이동
 WORKDIR /app/neurek
 
-# CMD로 쉘 스크립트 실행
-CMD ["bash", "/app/start.sh"]
+# Django 서버 실행
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

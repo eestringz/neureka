@@ -15,6 +15,9 @@ import {
 } from '@src/stores/authAtom'
 import { getCookie, removeCookie } from '@src/utils/loginCookie'
 
+import { path } from 'd3'
+
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLoginOpen, setIsLoginOpen] = useState(false)
@@ -87,7 +90,9 @@ const Navbar = () => {
   }
 
   // 로그인 url
-  const google_url = 'http://localhost:8080/oauth2/authorization/google'
+  
+
+
 
   const login = (url: string) => {
     window.location.href = url
