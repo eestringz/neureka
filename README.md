@@ -45,7 +45,7 @@
 ## 5. 주요 기능 시연
 
 ### 메인
-![메인](/uploads/5749cda41cef0db69c8606e798a585b9/메인.webp)
+![메인](./exec/img/메인.gif)
 
 ### 기사전체
 ![기사전체](/uploads/914a7eaed7b7a946a6a97bd7de13bebe/기사전체.webp)
